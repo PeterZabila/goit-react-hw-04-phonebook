@@ -3,28 +3,27 @@ import { Wrapper, Container } from './Main.styled';
 import ContactList from './ContactList/ContactList';
 import Form from './Form/Form';
 import Filter from './Filter/Filter';
-// import { nanoid } from 'nanoid';
+
 const defaultContacts = [
-      {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-      {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-      {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-      {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
+  {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
+  {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
+  {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
+  {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
 ];
 
-
 export default function App() {
-  const storageContacts =  JSON.parse(localStorage.getItem('contacts'));
-  const [contacts, setContacts] = useState(storageContacts || defaultContacts);
+  // const storageContacts =  JSON.parse(localStorage.getItem('contacts'));
+  const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
 
-  // useEffect(() => {
-  //   const localContacts = JSON.parse(localStorage.getItem('contacts'));
-  //   if(!localContacts?.length) {
-  //     setContacts(localContacts);
-  //   } else {
-  //     setContacts(defaultContacts);
-  //   }
-  // });
+  useEffect(() => {
+    const localContacts = JSON.parse(localStorage.getItem('contacts'));
+    if(localContacts?.length) {
+      setContacts(localContacts);
+    } else {
+      setContacts(defaultContacts);
+    }
+  }, []);
 
   useEffect((prevContacts) => {
     if(contacts !== prevContacts) {
@@ -49,9 +48,10 @@ export default function App() {
     return filteredContacts;
   }
 
-  
+
 // МОЖЛИВО В ЦІЙ ФУНКЦІЇ ТРАБЛ
   const addContact = (newContact) => {
+    console.log(newContact)
     console.log(newContact.name, newContact.number);
     console.log(contacts)
     if (contacts.find(contact => newContact.name.toLowerCase === contact.name.toLowerCase)) {
@@ -79,10 +79,13 @@ export default function App() {
           <Filter onChange={handleChange} value={filter}/>
         </Container>
         <Container>
-          <ContactList
-            contacts={getFilteredContacts()}
-            onDeleteContact={onDeleteContact}
-          />
+          {contacts.length !== 0 && (
+             <ContactList
+             contacts={getFilteredContacts()}
+             onDeleteContact={onDeleteContact}
+           />
+          )}
+         
         </Container>
       </Wrapper>
 
