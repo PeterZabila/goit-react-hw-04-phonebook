@@ -25,10 +25,9 @@ export default function App() {
     }
   }, []);
 
-  useEffect((prevContacts) => {
-    if(contacts !== prevContacts) {
+  useEffect(() => {
       localStorage.setItem('contacts', JSON.stringify(contacts))
-    }
+    
   }, [contacts]);
 
   const handleChange = e => {
@@ -48,13 +47,14 @@ export default function App() {
     return filteredContacts;
   }
 
-
 // МОЖЛИВО В ЦІЙ ФУНКЦІЇ ТРАБЛ
   const addContact = (newContact) => {
     console.log(newContact)
     console.log(newContact.name, newContact.number);
     console.log(contacts)
-    if (contacts.find(contact => newContact.name.toLowerCase === contact.name.toLowerCase)) {
+    const a = contacts.findIndex(contact => newContact.name.toLowerCase() === contact.name.toLowerCase())
+    console.log(a);
+    if(a > - 1) {
       alert(newContact.name + ' is already in contacts');
       return;
     }
