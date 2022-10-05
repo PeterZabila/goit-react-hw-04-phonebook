@@ -1,4 +1,4 @@
-
+import PropTypes from 'prop-types';
 import { Container, Button, MainTitle, Label, Input } from '../Main.styled';
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
@@ -90,3 +90,6 @@ const handleChange = e => {
         )
 }
 
+Form.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+}

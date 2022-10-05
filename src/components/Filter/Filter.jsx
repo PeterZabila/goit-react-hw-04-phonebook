@@ -1,4 +1,5 @@
-import { Label, Input, MainTitle } from '../Main.styled'
+import { Label, Input, MainTitle } from '../Main.styled';
+import PropTypes from 'prop-types';
 export default function Filter ({onChange, value}) {
 
     return (
@@ -17,3 +18,7 @@ export default function Filter ({onChange, value}) {
      ) 
 }
 
+Filter.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+}
